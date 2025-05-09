@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <title>Fruit Classifier</title>
+</head>
+<body>
+  <div class="container">
+    <h1>🍉 Fruit Classifier</h1>
+    <form id="upload-form" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required>
+      <button type="submit">Predict</button>
+    </form>
+    <div id="result"></div>
+  </div>
+  <script>
+    document.getElementById('upload-form').onsubmit = async e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = new FormData(form);
+      const res = await fetch('/predict',{method:'POST',body:data});
+      const json = await res.json();
+      document.getElementById('result').innerText =
+        res.ok ? `Prediction: ${json.prediction} (${json.confidence}%)`
+               : `Error: ${json.error}`;
+    };
+  </script>
+</body>
+</html>

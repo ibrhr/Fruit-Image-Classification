@@ -60,6 +60,12 @@ The script will:
 
 ## 🔍 Inference
 
+You can use the Flask app for a simple web interface, simply run
+```bash
+python app.py
+```
+
+
 Use the trained model to detect objects in an image:
 
 ```bash
